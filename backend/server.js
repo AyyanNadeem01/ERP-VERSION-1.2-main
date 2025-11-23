@@ -12,14 +12,16 @@ const vendorLedgerRoutes = require("./routes/vendorLedgerRoutes");
 const companyRoutes=require("./routes/companyRoutes")
 dotenv.config();
 const app = express();
+const path = require("path");
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// const cors = require('cors');
-// app.use(cors({
-//   origin: process.env.FRONTEND_URL || "https://erp-version-1-1-frontend.onrender.com", // fallback
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-//   credentials: true,
-// }));
+const cors = require('cors');
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "https://erp-version-1-1-frontend.onrender.com", // fallback
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
 
 app.use(express.json());
 
