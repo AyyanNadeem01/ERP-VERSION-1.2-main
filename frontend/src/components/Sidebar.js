@@ -36,15 +36,20 @@ export default function Sidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
-    <div className="w-64 bg-gray-100 dark:bg-gray-900 flex flex-col justify-between min-h-screen shadow-lg">
-      {/* Top Section: Logo & Navigation */}
-      <div>
-        {/* Logo & Company Name */}
-        <div className="flex flex-col items-center justify-center py-6">
+    // CHANGE 1: Used 'h-screen' to ensure the sidebar takes the exact viewport height.
+    <div className="w-64 bg-gray-100 dark:bg-gray-900 flex flex-col justify-between h-screen shadow-lg">
+      
+      {/* Top Section: Logo & Navigation Container */}
+      {/* Added flex-col and overflow-hidden to manage internal scrolling */}
+      <div className="flex flex-col overflow-hidden">
+        
+        {/* Logo & Company Name (Fixed Height) */}
+        {/* Added flex-shrink-0 to prevent this section from shrinking */}
+        <div className="flex flex-col items-center justify-center py-6 flex-shrink-0">
           {company?.logo ? (
             <img
               src={`${process.env.REACT_APP_API_URL.replace("/api", "")}${company.logo}`}
@@ -62,7 +67,8 @@ export default function Sidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-col space-y-2 mt-6 px-4 overflow-y-auto max-h-[calc(100vh-200px)]">
+        {/* CHANGE 2: Removed 'max-h-[calc(100vh-200px)]' and added 'flex-1' to make it fill available space. */}
+        <nav className="flex flex-col space-y-2 mt-6 px-4 overflow-y-auto flex-1">
           {links.map((link) => {
             const isActive = location.pathname === link.path;
             return (
@@ -80,8 +86,9 @@ export default function Sidebar() {
         </nav>
       </div>
 
-      {/* Bottom Section: Theme Toggle + Logout */}
-      <div className="px-4 py-6 border-t border-gray-200 dark:border-gray-700 flex flex-col gap-3">
+      {/* Bottom Section: Theme Toggle + Logout (Fixed Position) */}
+      {/* Added flex-shrink-0 to prevent this section from shrinking */}
+      <div className="px-4 py-6 border-t border-gray-200 dark:border-gray-700 flex flex-col gap-3 flex-shrink-0">
         <ThemeToggle />
         <button
           onClick={handleLogout}

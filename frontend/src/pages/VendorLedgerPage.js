@@ -44,7 +44,8 @@ export default function VendorLedgerPage() {
   }, [selectedVendor, fromDate, toDate]);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
+    // Updated background and text colors for dark theme
+    <div className="p-6 bg-gray-100 dark:bg-gray-800 min-h-screen text-gray-900 dark:text-gray-100">
       <h2 className="text-2xl font-bold mb-4">Vendor Ledger</h2>
 
       {/* Filters */}
@@ -54,7 +55,8 @@ export default function VendorLedgerPage() {
           <select
             value={selectedVendor}
             onChange={(e) => setSelectedVendor(e.target.value)}
-            className="p-2 border rounded w-full"
+            // Updated select styling for dark theme
+            className="p-2 border rounded w-full bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-100"
           >
             <option value="">-- All Vendors --</option>
             {vendors.map((v) => (
@@ -70,7 +72,8 @@ export default function VendorLedgerPage() {
             type="date"
             value={fromDate}
             onChange={(e) => setFromDate(e.target.value)}
-            className="p-2 border rounded w-full"
+            // Updated input styling for dark theme
+            className="p-2 border rounded w-full bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div>
@@ -79,13 +82,15 @@ export default function VendorLedgerPage() {
             type="date"
             value={toDate}
             onChange={(e) => setToDate(e.target.value)}
-            className="p-2 border rounded w-full"
+            // Updated input styling for dark theme
+            className="p-2 border rounded w-full bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:ring-blue-500 focus:border-blue-500 text-gray-900 dark:text-gray-100"
           />
         </div>
         <div className="flex items-end">
           <button
             onClick={fetchLedger}
-            className="bg-blue-600 text-white py-2 px-4 rounded w-full"
+            // Retained bright button color for visibility
+            className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded w-full transition"
           >
             Apply Filters
           </button>
@@ -96,29 +101,32 @@ export default function VendorLedgerPage() {
       {ledger.length === 0 ? (
         <p>No ledger entries found.</p>
       ) : (
-        <div className="overflow-x-auto bg-white p-4 shadow rounded">
+        // Updated table container for dark theme
+        <div className="overflow-x-auto bg-white dark:bg-gray-700 p-4 shadow rounded">
           <table className="w-full table-auto border-collapse">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-2 border">Date</th>
-                <th className="p-2 border">Vendor</th>
-                <th className="p-2 border">Description</th>
-                <th className="p-2 border">Stock Purchased</th>
-                <th className="p-2 border">Payment Paid</th>
-                <th className="p-2 border">Balance</th>
+              {/* Updated table header row for dark theme */}
+              <tr className="bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100">
+                <th className="p-2 border border-gray-300 dark:border-gray-500">Date</th>
+                <th className="p-2 border border-gray-300 dark:border-gray-500">Vendor</th>
+                <th className="p-2 border border-gray-300 dark:border-gray-500">Description</th>
+                <th className="p-2 border border-gray-300 dark:border-gray-500">Stock Purchased</th>
+                <th className="p-2 border border-gray-300 dark:border-gray-500">Payment Paid</th>
+                <th className="p-2 border border-gray-300 dark:border-gray-500">Balance</th>
               </tr>
             </thead>
             <tbody>
               {ledger.map((entry) => (
-                <tr key={entry._id} className="hover:bg-gray-100">
-                  <td className="p-2 border">
+                // Updated table row for dark theme, including hover state
+                <tr key={entry._id} className="bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition">
+                  <td className="p-2 border border-gray-300 dark:border-gray-500">
                     {new Date(entry.date).toLocaleDateString()}
                   </td>
-                  <td className="p-2 border">{entry.vendor?.name || "N/A"}</td>
-                  <td className="p-2 border">{entry.description}</td>
-                  <td className="p-2 border">${entry.stockPurchased}</td>
-                  <td className="p-2 border">${entry.paymentPaid}</td>
-                  <td className="p-2 border">${entry.balance}</td>
+                  <td className="p-2 border border-gray-300 dark:border-gray-500">{entry.vendor?.name || "N/A"}</td>
+                  <td className="p-2 border border-gray-300 dark:border-gray-500">{entry.description}</td>
+                  <td className="p-2 border border-gray-300 dark:border-gray-500">${entry.stockPurchased}</td>
+                  <td className="p-2 border border-gray-300 dark:border-gray-500">${entry.paymentPaid}</td>
+                  <td className="p-2 border border-gray-300 dark:border-gray-500">${entry.balance}</td>
                 </tr>
               ))}
             </tbody>
